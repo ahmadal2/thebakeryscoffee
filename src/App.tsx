@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { Coffee, Instagram, Facebook, Twitter, Phone, Mail, ChevronRight, Menu } from "lucide-react";
+import { Coffee, Instagram, Facebook, Phone, ChevronRight, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -10,6 +10,7 @@ import MenuPage from "./pages/MenuPage";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,31 +19,87 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Update scrolled state when route changes to avoid stuck states
+  // Close mobile menu and update scroll state on route change
   useEffect(() => {
     setScrolled(window.scrollY > 50);
+    setMobileOpen(false);
   }, [location]);
 
+  const navLinks = [
+    { label: "Menu", href: "/menu", isRoute: true },
+    { label: "About Us", href: "/#about", isRoute: false },
+    { label: "Location", href: "/#locations", isRoute: false },
+  ];
+
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500`}>
-      <div className="flex justify-center px-6 py-4 md:py-8">
-        <div className={`flex items-center gap-7 bg-primary rounded-full px-10 py-2.5 transition-all duration-500 ${scrolled ? "shadow-2xl scale-95" : "shadow-lg"}`}>
-          <Link to="/menu" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Menu</Link>
+    <>
+      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500`}>
+        <div className="flex justify-center px-6 py-4 md:py-8">
+          <div className={`flex items-center gap-7 bg-primary rounded-full px-10 py-2.5 transition-all duration-500 ${scrolled ? "shadow-2xl scale-95" : "shadow-lg"}`}>
 
-          {/* Center Logo */}
-          <Link to="/" className="flex items-center justify-center bg-accent rounded-full w-9 h-9 hover:rotate-12 transition-all duration-500 shadow-xl group">
-            <Coffee size={18} className="text-primary group-hover:scale-110 transition-transform" />
-          </Link>
+            {/* Desktop links left */}
+            <Link to="/menu" className="hidden md:block text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Menu</Link>
 
-          <a href="/#about" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">About Us</a>
-          <a href="/#locations" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Location</a>
+            {/* Center Logo */}
+            <Link to="/" className="flex items-center justify-center bg-accent rounded-full w-9 h-9 hover:rotate-12 transition-all duration-500 shadow-xl group">
+              <Coffee size={18} className="text-primary group-hover:scale-110 transition-transform" />
+            </Link>
 
-          <button className="md:hidden text-accent hover:rotate-90 transition-transform">
-            <Menu size={18} />
-          </button>
+            {/* Desktop links right */}
+            <a href="/#about" className="hidden md:block text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">About Us</a>
+            <a href="/#locations" className="hidden md:block text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Location</a>
+
+            {/* Hamburger – mobile only */}
+            <button
+              className="md:hidden text-accent transition-transform"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile Dropdown */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -20, scaleY: 0.9 }}
+            animate={{ opacity: 1, y: 0, scaleY: 1 }}
+            exit={{ opacity: 0, y: -20, scaleY: 0.9 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed top-24 left-0 w-full z-40 flex justify-center px-6"
+            style={{ transformOrigin: "top" }}
+          >
+            <div className="bg-primary rounded-2xl px-8 py-6 shadow-2xl flex flex-col gap-5 w-full max-w-xs">
+              {navLinks.map((link) =>
+                link.isRoute ? (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-accent font-accent font-bold uppercase tracking-widest text-sm hover:opacity-100 opacity-80 transition-all"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-accent font-accent font-bold uppercase tracking-widest text-sm hover:opacity-100 opacity-80 transition-all"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
@@ -62,13 +119,13 @@ const Footer = () => {
             </div>
             <p className="text-white/70 text-xl font-accent">THE ONE THING THAT NEVER LETS ME DOWN: COFFEE</p>
             <div className="flex flex-col gap-5">
-              <a href="tel:+12125550198" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
+              <a href="tel:040326474" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
                 <Phone size={20} className="opacity-50 group-hover:opacity-100" />
-                <span className="font-accent font-bold text-lg">+1 (212) 555-0198</span>
+                <span className="font-accent font-bold text-lg">040326474</span>
               </a>
-              <a href="mailto:hello@thebakerycoffee.com" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
-                <Mail size={20} className="opacity-50 group-hover:opacity-100" />
-                <span className="font-accent font-bold text-lg">hello@thebakerycoffee.com</span>
+              <a href="https://www.instagram.com/thebakeryscoffee/?hl=de" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
+                <Instagram size={20} className="opacity-50 group-hover:opacity-100" />
+                <span className="font-accent font-bold text-lg">@thebakeryscoffee</span>
               </a>
             </div>
           </div>
@@ -97,18 +154,31 @@ const Footer = () => {
             <div className="flex flex-col gap-8">
               <h4 className="font-accent font-bold uppercase tracking-widest text-white text-sm opacity-50">Follow Us</h4>
               <div className="flex gap-5">
-                {[Instagram, Facebook, Twitter].map((Icon, i) => (
-                  <a key={i} href="#" className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform shadow-sm">
-                    <Icon size={24} />
-                  </a>
-                ))}
+                <a
+                  href="https://www.instagram.com/thebakeryscoffee/?hl=de"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+                  aria-label="Instagram"
+                >
+                  <Instagram size={24} />
+                </a>
+                <a
+                  href="https://www.facebook.com/TheBakerysCoffeeHH/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+                  aria-label="Facebook"
+                >
+                  <Facebook size={24} />
+                </a>
               </div>
             </div>
           </div>
         </div>
 
         <div className="py-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-white/50">
-          <p className="font-accent text-lg">2025 © The Bakery's Coffee</p>
+          <p className="font-accent text-lg">{new Date().getFullYear()} © The Bakery's Coffee</p>
           <a href="#hero" className="hover:text-white transition-colors font-accent flex items-center gap-3 text-lg group">
             Back to Top <ChevronRight size={20} className="-rotate-90 group-hover:-translate-y-1 transition-transform" />
           </a>

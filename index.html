@@ -1,13 +1,84 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
+    <!-- Favicon – logo appears next to page title in browser tab -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
+    <link rel="shortcut icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+
+    <!-- ✅ Primary SEO -->
+    <title>The Bakery's Coffee – Bester Kaffee in Hamburg | Café Hamburg</title>
+    <meta name="description" content="The Bakery's Coffee – dein gemütlichstes Café in Hamburg. Bester Kaffee, frische Backwaren und handgemachte Getränke. Besuche uns am Hammer Steindamm 108, 20535 Hamburg." />
+    <meta name="keywords" content="Kaffee Hamburg, Café Hamburg, bester Kaffee Hamburg, coffee Hamburg, beste Kaffee Hamburg, Bakery Coffee Hamburg, Kaffeehaus Hamburg, Espresso Hamburg, Latte Hamburg, Cappuccino Hamburg, Café Hammerbrook, Bäckerei Café Hamburg, gemütliches Café Hamburg, Kaffee und Kuchen Hamburg, coffee shop Hamburg" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="The Bakery's Coffee" />
+    <link rel="canonical" href="https://thebakeryscoffee.de/" />
+
+    <!-- ✅ Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:title" content="The Bakery's Coffee – Bester Kaffee in Hamburg" />
+    <meta property="og:description" content="Genieße handgemachten Kaffee, frische Backwaren und eine gemütliche Atmosphäre mitten in Hamburg. Jeden Tag von 8 Uhr morgens." />
+    <meta property="og:url" content="https://thebakeryscoffee.de/" />
+    <meta property="og:site_name" content="The Bakery's Coffee" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:image" content="https://thebakeryscoffee.de/cop2-re.png" />
+
+    <!-- ✅ Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Bakery's Coffee – Bester Kaffee in Hamburg" />
+    <meta name="twitter:description" content="Handgemachter Kaffee, frische Backwaren und ein gemütliches Café in Hamburg. Besuche uns!" />
+    <meta name="twitter:image" content="https://thebakeryscoffee.de/cop2-re.png" />
+
+    <!-- ✅ Geo tags for local SEO -->
+    <meta name="geo.region" content="DE-HH" />
+    <meta name="geo.placename" content="Hamburg" />
+    <meta name="geo.position" content="53.5531284;10.0033265" />
+    <meta name="ICBM" content="53.5531284, 10.0033265" />
+
+    <!-- ✅ JSON-LD Structured Data (rich results in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CafeOrCoffeeShop",
+      "name": "The Bakery's Coffee",
+      "description": "Gemütliches Café in Hamburg mit handgemachtem Kaffee, frischen Backwaren und freundlichem Service.",
+      "url": "https://thebakeryscoffee.de",
+      "telephone": "040326474",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Hammer Steindamm 108",
+        "addressLocality": "Hamburg",
+        "postalCode": "20535",
+        "addressCountry": "DE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 53.5531284,
+        "longitude": 10.0033265
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "17:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:30", "closes": "17:00" }
+      ],
+      "servesCuisine": ["Coffee", "Bakery", "Cafe"],
+      "priceRange": "€",
+      "sameAs": [
+        "https://www.instagram.com/thebakeryscoffee/?hl=de",
+        "https://www.facebook.com/TheBakerysCoffeeHH/"
+      ],
+      "image": "https://thebakeryscoffee.de/cop2-re.png",
+      "hasMap": "https://www.google.com/maps/place/The+Bakerys+Coffee/@53.5531316,10.0059014,17z"
+    }
+    </script>
+
+    <!-- Favicon (use logo.png if available) -->
+    <link rel="icon" type="image/png" href="/logo.png" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
