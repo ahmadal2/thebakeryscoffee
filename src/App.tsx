@@ -10,7 +10,6 @@ import MenuPage from "./pages/MenuPage";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -19,86 +18,31 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu on route change
+  // Update scrolled state when route changes to avoid stuck states
   useEffect(() => {
-    setIsOpen(false);
     setScrolled(window.scrollY > 50);
   }, [location]);
 
-  const navLinks = [
-    { name: "Menu", href: "/menu" },
-    { name: "About Us", href: "/#about" },
-    { name: "Location", href: "/#locations" }
-  ];
-
   return (
-    <>
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500`}>
-        <div className="flex justify-center px-6 py-4 md:py-8">
-          <div className={`flex items-center gap-7 bg-primary rounded-full px-10 py-2.5 transition-all duration-500 ${scrolled ? "shadow-2xl scale-95" : "shadow-lg"}`}>
-            <div className="hidden md:flex items-center gap-7">
-              <Link to="/menu" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Menu</Link>
-            </div>
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500`}>
+      <div className="flex justify-center px-6 py-4 md:py-8">
+        <div className={`flex items-center gap-7 bg-primary rounded-full px-10 py-2.5 transition-all duration-500 ${scrolled ? "shadow-2xl scale-95" : "shadow-lg"}`}>
+          <Link to="/menu" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Menu</Link>
 
-            {/* Center Logo */}
-            <Link to="/" className="flex items-center justify-center bg-accent rounded-full w-9 h-9 hover:rotate-12 transition-all duration-500 shadow-xl group">
-              <Coffee size={18} className="text-primary group-hover:scale-110 transition-transform" />
-            </Link>
+          {/* Center Logo */}
+          <Link to="/" className="flex items-center justify-center bg-accent rounded-full w-9 h-9 hover:rotate-12 transition-all duration-500 shadow-xl group">
+            <Coffee size={18} className="text-primary group-hover:scale-110 transition-transform" />
+          </Link>
 
-            <div className="hidden md:flex items-center gap-7">
-              <a href="/#about" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">About Us</a>
-              <a href="/#locations" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Location</a>
-            </div>
+          <a href="/#about" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">About Us</a>
+          <a href="/#locations" className="text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Location</a>
 
-            <button 
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-accent hover:rotate-90 transition-transform"
-            >
-              <Menu size={18} />
-            </button>
-          </div>
+          <button className="md:hidden text-accent hover:rotate-90 transition-transform">
+            <Menu size={18} />
+          </button>
         </div>
-      </nav>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-primary/95 backdrop-blur-xl flex flex-col items-center justify-center gap-12"
-          >
-            <div className="flex flex-col items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href.startsWith("/") && !link.href.includes("#") ? link.href : "#"}
-                  onClick={() => {
-                    if (link.href.includes("#")) {
-                      const id = link.href.split("#")[1];
-                      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="text-white font-display text-4xl uppercase tracking-tighter hover:scale-110 transition-transform"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-            
-            {/* Close Button Mobile */}
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="mt-12 w-16 h-16 rounded-full bg-accent text-primary flex items-center justify-center shadow-2xl"
-            >
-              <Menu size={32} className="rotate-90" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+      </div>
+    </nav>
   );
 };
 
@@ -118,13 +62,13 @@ const Footer = () => {
             </div>
             <p className="text-white/70 text-xl font-accent">THE ONE THING THAT NEVER LETS ME DOWN: COFFEE</p>
             <div className="flex flex-col gap-5">
-              <a href="tel:040326474" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
+              <a href="tel:+12125550198" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
                 <Phone size={20} className="opacity-50 group-hover:opacity-100" />
-                <span className="font-accent font-bold text-lg">040 326474</span>
+                <span className="font-accent font-bold text-lg">+1 (212) 555-0198</span>
               </a>
-              <a href="https://www.instagram.com/thebakeryscoffee/?hl=de" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
-                <Instagram size={20} className="opacity-50 group-hover:opacity-100" />
-                <span className="font-accent font-bold text-lg">@thebakeryscoffee</span>
+              <a href="mailto:hello@thebakerycoffee.com" className="flex items-center gap-4 text-white/70 hover:text-white transition-colors group">
+                <Mail size={20} className="opacity-50 group-hover:opacity-100" />
+                <span className="font-accent font-bold text-lg">hello@thebakerycoffee.com</span>
               </a>
             </div>
           </div>
@@ -153,12 +97,9 @@ const Footer = () => {
             <div className="flex flex-col gap-8">
               <h4 className="font-accent font-bold uppercase tracking-widest text-white text-sm opacity-50">Follow Us</h4>
               <div className="flex gap-5">
-                {[
-                  { Icon: Instagram, href: "https://www.instagram.com/thebakeryscoffee/?hl=de" },
-                  { Icon: Facebook, href: "https://www.facebook.com/TheBakerysCoffeeHH/#" }
-                ].map((social, i) => (
-                  <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform shadow-sm">
-                    <social.Icon size={24} />
+                {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                  <a key={i} href="#" className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform shadow-sm">
+                    <Icon size={24} />
                   </a>
                 ))}
               </div>

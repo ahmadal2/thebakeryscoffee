@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { Coffee, Zap, Home, Heart, Leaf, Smile, MapPin } from "lucide-react";
-import { ReactNode, useRef, useState, useEffect } from "react";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 // --- Shared UI Components ---
@@ -45,78 +45,67 @@ const Ticker = () => {
 };
 
 const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const framesCount = 26;
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [1, framesCount]);
-  const [currentFrame, setCurrentFrame] = useState(1);
-
-  // Update current frame on scroll
-  useEffect(() => {
-    return frameIndex.on("change", (latest) => {
-      setCurrentFrame(Math.floor(latest));
-    });
-  }, [frameIndex]);
-
-  const framePath = (index: number) => {
-    const formatted = index.toString().padStart(3, '0');
-    return `/cofffefotos/ezgif-frame-${formatted}.png`;
-  };
-
   return (
-    <section ref={containerRef} className="h-[300vh] relative bg-primary overflow-clip" id="hero">
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-        {/* Black Background Fill */}
-        <div className="absolute inset-0 bg-primary z-0" />
-        
-        {/* Coffee Sequence */}
-        <img 
-          src={framePath(currentFrame)} 
-          alt="Coffee sequence" 
-          className="w-full h-full object-cover z-10 opacity-70"
-        />
-        
-        {/* Animated text overlays */}
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-accent px-6 pointer-events-none text-center">
-           <motion.div 
-             style={{ 
-               opacity: useTransform(scrollYProgress, [0, 0.15, 0.35, 0.5], [0, 1, 1, 0]),
-               y: useTransform(scrollYProgress, [0, 0.15, 0.35, 0.5], [40, 0, 0, -40])
-             }}
-           >
-             <h1 className="font-display text-5xl md:text-8xl lg:text-9xl uppercase mb-6 leading-tight">
-               THE ONE THING THAT<br />NEVER LETS ME DOWN:
-             </h1>
-             <h2 className="font-display text-6xl md:text-9xl lg:text-[10rem] uppercase text-white">COFFEE</h2>
-           </motion.div>
+    <section className="relative bg-primary pt-48 pb-0 overflow-hidden" id="hero">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="font-display text-5xl md:text-7xl lg:text-8xl text-accent mb-6 leading-[1.12] uppercase"
+        >
+          THE ONE THING THAT NEVER LETS ME DOWN: COFFEE
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-accent-70 text-xl md:text-2xl max-w-2xl mx-auto mb-10 font-accent"
+        >
+          Because great coffee is the beginning of something even greater.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-col md:flex-row items-center justify-center gap-4 mb-20"
+        >
+          <Link to="/menu" className="px-6 py-3 rounded-full font-accent text-lg transition-all duration-300 flex items-center justify-center cursor-pointer select-none bg-accent text-primary hover:opacity-90 border border-accent">Explore Menu</Link>
+          <Button variant="outline" href="#locations">Our Locations</Button>
+        </motion.div>
 
-           <motion.div 
-             style={{ 
-               opacity: useTransform(scrollYProgress, [0.6, 0.75, 1], [0, 1, 1]),
-               y: useTransform(scrollYProgress, [0.6, 0.75, 1], [40, 0, 0])
-             }}
-             className="absolute"
-           >
-             <p className="font-accent text-2xl md:text-4xl italic mb-12 max-w-3xl">
-               Because great coffee is the beginning of something even greater.
-             </p>
-             <div className="flex flex-col md:flex-row items-center justify-center gap-6 pointer-events-auto">
-               <Link to="/menu" className="px-10 py-4 rounded-full font-accent text-xl bg-accent text-primary hover:scale-105 transition-all duration-300 shadow-2xl">
-                 Explore Menu
-               </Link>
-               <Button variant="outline" href="#locations" className="border-accent text-accent hover:bg-accent/10 px-10 py-4 text-xl">
-                 Our Locations
-               </Button>
-             </div>
-           </motion.div>
+        <div className="relative flex justify-center items-end gap-8 max-w-5xl mx-auto h-[400px] md:h-[520px]">
+          <motion.div
+            initial={{ opacity: 0, y: 200, rotate: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -7, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", bounce: 0, delay: 0.4, duration: 1.2 }}
+            className="hidden md:block w-1/3 aspect-[3/4] rounded-3xl overflow-hidden framer-drop-shadow z-10"
+          >
+            <img src="./cop2-re.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 240, scale: 0.8 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", bounce: 0, delay: 0.1, duration: 1.2 }}
+            className="w-full md:w-2/5 aspect-[3/4] rounded-3xl overflow-hidden framer-drop-shadow z-20"
+          >
+            <img src="./cop2-re.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 200, rotate: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 7, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", bounce: 0, delay: 0.6, duration: 1.2 }}
+            className="hidden md:block w-1/3 aspect-[3/4] rounded-3xl overflow-hidden framer-drop-shadow z-10"
+          >
+            <img src="./cop2-re.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          </motion.div>
         </div>
-
-        {/* Bottom Fade to next section */}
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-bg to-transparent z-30" />
       </div>
     </section>
   );
