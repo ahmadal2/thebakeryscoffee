@@ -47,8 +47,8 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop links right */}
-            <a href="/#about" className="hidden md:block text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">About Us</a>
-            <a href="/#locations" className="hidden md:block text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Location</a>
+            <Link to="/#about" className="hidden md:block text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">About Us</Link>
+            <Link to="/#locations" className="hidden md:block text-accent font-accent font-bold uppercase tracking-widest text-[11px] hover:opacity-100 opacity-80 transition-all hover:scale-105">Location</Link>
 
             {/* Hamburger – mobile only */}
             <button
@@ -140,7 +140,7 @@ const Footer = () => {
                   { name: "About Us", href: "/#about" },
                   { name: "Location", href: "/#locations" }
                 ].map((link) => (
-                  <a key={link.name} href={link.href} className="text-white/70 hover:text-white transition-colors font-accent text-xl">{link.name}</a>
+                  <Link key={link.name} to={link.href} className="text-white/70 hover:text-white transition-colors font-accent text-xl">{link.name}</Link>
                 ))}
               </div>
             </div>
@@ -201,7 +201,12 @@ const ScrollToTop = () => {
 // --- Main App ---
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !sessionStorage.getItem("intro-shown");
+    }
+    return true;
+  });
 
   return (
     <>
@@ -214,7 +219,10 @@ export default function App() {
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             style={{ position: "fixed", inset: 0, zIndex: 9999 }}
           >
-            <Intro onComplete={() => setIsLoading(false)} />
+            <Intro onComplete={() => {
+              setIsLoading(false);
+              sessionStorage.setItem("intro-shown", "true");
+            }} />
           </motion.div>
         )}
       </AnimatePresence>
