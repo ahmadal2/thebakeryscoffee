@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
+import Intro from "./components/Intro";
 
 // --- Nav Components ---
 
@@ -200,24 +201,45 @@ const ScrollToTop = () => {
 // --- Main App ---
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen selection:bg-accent selection:text-primary">
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/menu" element={<MenuPage />} />
-          </Routes>
-        </main>
-        <Footer />
+  const [isLoading, setIsLoading] = useState(true);
 
-        {/* Texture Overlay */}
-        <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.015] mix-blend-overlay">
-          <div className="absolute inset-[-200%] w-[400%] h-[400%] bg-[url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')] animate-[marquee_20s_linear_infinite]" />
-        </div>
+  return (
+    <>
+      {/* Loading screen — exits via AnimatePresence */}
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <motion.div
+            key="loader"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            style={{ position: "fixed", inset: 0, zIndex: 9999 }}
+          >
+            <Intro onComplete={() => setIsLoading(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main site — fades in after loader */}
+      <div style={{ opacity: isLoading ? 0 : 1, transition: "opacity 0.5s ease-out" }}>
+        <BrowserRouter>
+          <ScrollToTop />
+          <div className="min-h-screen selection:bg-accent selection:text-primary">
+            <Navbar />
+            <main>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/menu" element={<MenuPage />} />
+              </Routes>
+            </main>
+            <Footer />
+
+            {/* Texture Overlay */}
+            <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.015] mix-blend-overlay">
+              <div className="absolute inset-[-200%] w-[400%] h-[400%] bg-[url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')] animate-[marquee_20s_linear_infinite]" />
+            </div>
+          </div>
+        </BrowserRouter>
       </div>
-    </BrowserRouter>
+    </>
   );
 }

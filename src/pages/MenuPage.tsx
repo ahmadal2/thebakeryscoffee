@@ -4,7 +4,7 @@ import { useState } from "react";
 const menuData = [
   {
     category: "HOT",
-    icon: "/logo.png",
+    icon: "/1.png",
     items: [
       { name: "Espresso Single", price: "2.4", img: "https://framerusercontent.com/images/zFhN0m2lS8Y18C2v7iX0N3WzL8.png" },
       { name: "Espresso Doppio", price: "3.2", img: "https://framerusercontent.com/images/zFhN0m2lS8Y18C2v7iX0N3WzL8.png" },
@@ -25,7 +25,7 @@ const menuData = [
   },
   {
     category: "COLD",
-    icon: "/logo.png",
+    icon: "/1.png",
     items: [
       { name: "Iced Americano", price: "3.5", img: "https://framerusercontent.com/images/SQyG9MUqC4l0tcOwMBUqKSPs.png" },
       { name: "Iced Flat White", price: "4.2", img: "https://framerusercontent.com/images/SQyG9MUqC4l0tcOwMBUqKSPs.png" },
@@ -40,7 +40,7 @@ const menuData = [
   },
   {
     category: "NON COFFEE",
-    icon: "/logo.png",
+    icon: "/1.png",
     items: [
       { name: "Matcha Latte", price: "4.9", img: "https://framerusercontent.com/images/xfbGh8y8ldXuORIb7KqEPfWw.png" },
       { name: "Chai Latte", price: "4.4", img: "https://framerusercontent.com/images/xfbGh8y8ldXuORIb7KqEPfWw.png" },
@@ -53,7 +53,7 @@ const menuData = [
   },
   {
     category: "FRESH JUICES",
-    icon: "/logo.png",
+    icon: "/1.png",
     items: [
       { name: "Bettyfully", price: "5.9", img: "https://framerusercontent.com/images/aGov0YLph69oSXfLtikW25F3rQU.png" },
       { name: "The Boss", price: "5.9", img: "https://framerusercontent.com/images/aGov0YLph69oSXfLtikW25F3rQU.png" },

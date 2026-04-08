@@ -85,7 +85,7 @@ const Hero = () => {
             transition={{ type: "spring", bounce: 0, delay: 0.4, duration: 1.2 }}
             className="hidden md:block w-1/3 aspect-[3/4] rounded-3xl overflow-hidden framer-drop-shadow z-10"
           >
-            <img src="./cop2-re.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="./0.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 240, scale: 0.8 }}
@@ -94,7 +94,7 @@ const Hero = () => {
             transition={{ type: "spring", bounce: 0, delay: 0.1, duration: 1.2 }}
             className="w-full md:w-2/5 aspect-[3/4] rounded-3xl overflow-hidden framer-drop-shadow z-20"
           >
-            <img src="./cop2-re.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="./0.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 200, rotate: 0, scale: 0.8 }}
@@ -103,7 +103,7 @@ const Hero = () => {
             transition={{ type: "spring", bounce: 0, delay: 0.6, duration: 1.2 }}
             className="hidden md:block w-1/3 aspect-[3/4] rounded-3xl overflow-hidden framer-drop-shadow z-10"
           >
-            <img src="./cop2-re.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="./0.png" alt="Coffee" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </motion.div>
         </div>
       </div>
@@ -113,9 +113,9 @@ const Hero = () => {
 
 const Categories = () => {
   const cats = [
-    { name: "Coffee", img: "/logo.png" },
-    { name: "Cold Drinks", img: "/logo.png" },
-    { name: "Bakery", img: "/logo.png" },
+    { name: "Coffee", img: "/1.png" },
+    { name: "Cold Drinks", img: "/1.png" },
+    { name: "Bakery", img: "/1.png" },
   ];
 
   return (
